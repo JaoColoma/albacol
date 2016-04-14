@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlet;
 
 import Classes.Account;
@@ -23,27 +18,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
 
-/**
- *
- * @author yla
- */
+
 @WebServlet(name = "TwilioServlet", urlPatterns = {"/TwilioServlet"})
 public class TwilioServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -56,33 +39,18 @@ public class TwilioServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        
         PrintWriter out = response.getWriter();
         Sms msg = null;
         TwilioConnect connect = new TwilioConnect();
@@ -93,15 +61,12 @@ public class TwilioServlet extends HttpServlet {
         
         Map<String, String> params = new HashMap<String, String>();
         String[] senatorvalues = request.getParameterValues("senator");
-        //String senators = Arrays.toString(senatorvalues);
         String s=Arrays.toString(senatorvalues).replaceAll("(\\[|\\]|| )", "");
         
 
         params.put("From", "+12016901187");
         params.put("Body", "President: " + request.getParameter("president") + ", Vice President: " + request.getParameter("vp") + ", Senators: " + s);
         params.put("To", request.getParameter("sendto"));
-		
-        //params.put("To", account.getNumber());
         
         SmsFactory msgFactory = tw_client.getAccount().getSmsFactory();
         try {
@@ -113,14 +78,10 @@ public class TwilioServlet extends HttpServlet {
         out.println("Thank you for voting! Message sent! Your message ID is:" + msg.getSid());
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

@@ -16,15 +16,11 @@ import org.json.simple.parser.ParseException;
 
 import java.sql.Date;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 public class DBHelper {
 
     private static final long serialVersionUID = 1L;
-    // set defaults
+    
     private String databaseHost = "localhost";
     private long port = 50000;
     private String databaseName = "mydb";
@@ -41,15 +37,14 @@ public class DBHelper {
         getConnection();
         createTable();
 
-        // createSchema();
+        
     }
 
     private boolean processVCAP() throws ParseException {
-        // VCAP_SERVICES is a system environment variable
-        // Parse it to obtain the for DB2 connection info
+        
         Map<String, String> env = System.getenv();
         if (env.containsKey("VCAP_SERVICES")) {
-            // parse the VCAP JSON structure
+            
             JSONParser parser = new JSONParser();
             JSONObject vcap = (JSONObject) parser.parse(env.get("VCAP_SERVICES"));
             JSONObject service = null;
@@ -85,9 +80,9 @@ public class DBHelper {
     }
 
     private void getConnection() {
-        // process the VCAP env variable and set all the global connection parameters
+        
         if (statusVCAP) {
-            // Connect to the Database
+            
             try {
                 writer.println();
                 writer.println("Connecting to the database");
@@ -112,20 +107,18 @@ public class DBHelper {
         }
     }
 
-    // Try out some dynamic SQL Statements
+    
     Statement stmt = null;
     String tableName = "Account";
     String sqlStatement = "";
 
-    // create a unique table name to make sure we deal with our own table
-    // If another version of this sample app binds to the same database, 
-    // this gives us some level of isolation
+   
     private void createTable() {
-        // create a table
+        
         if (con != null) {
             try {
                 stmt = con.createStatement();
-                // Create the CREATE TABLE SQL statement and execute it
+
                 sqlStatement = "CREATE TABLE " + tableName
                         + " (votersID integer GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1), lastname VARCHAR(20), firstname VARCHAR(20), middlename VARCHAR(20), "
 						+" birthday DATE, address VARCHAR(20),  nationality VARCHAR(20), gender VARCHAR(20), "
@@ -161,8 +154,7 @@ public class DBHelper {
                 writer.println("Error " + e);
             }
             return "none";
-//            return selectSingle(bean.getFname());
-            //return "Del Valle";
+
         }
         return null;
     }

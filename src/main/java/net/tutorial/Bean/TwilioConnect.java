@@ -4,7 +4,7 @@ import Servlet.TwilioServlet;
 import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser; //Dependency
+import org.json.simple.parser.JSONParser; 
 
 public class TwilioConnect {
     
@@ -22,7 +22,7 @@ public class TwilioConnect {
     private void setCreds()throws Exception{
         Map<String, String> env = System.getenv();
         
-        if(env.containsKey("VCAP_SERVICES")){ //to check if VCAP_SERVICES exists
+        if(env.containsKey("VCAP_SERVICES")){ 
             JSONParser parse = new JSONParser();
             JSONObject v_serv = (JSONObject) parse.parse(env.get("VCAP_SERVICES"));
             JSONObject service = null;
@@ -30,13 +30,13 @@ public class TwilioConnect {
             
             for (Object key : v_serv.keySet()) {
                 String keyStr = (String) key;
-                if (keyStr.toLowerCase().contains("user-provided")) { //twilio vcap_services json uses "user-provided"
+                if (keyStr.toLowerCase().contains("user-provided")) { 
                     service = (JSONObject) ((JSONArray) v_serv.get(keyStr)).get(0);
                     break;
                 }
             }
             
-            if (service != null) { //set the needed credentials accountSID and authToken
+            if (service != null) { 
                 JSONObject creds = (JSONObject) service.get("credentials");
                 this.accountSID = (String) creds.get("accountSID");
                 this.authToken = (String) creds.get("authToken");
@@ -45,7 +45,7 @@ public class TwilioConnect {
                 throw new Exception("Twilio service not found");
             }
         }
-        else{ //if VCAP_SERVICES do not exist, throw exception
+        else{ 
             throw new Exception("Error: VCAP_SERVICES not found");
         }
     }
