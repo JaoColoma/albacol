@@ -1,1 +1,2 @@
-# gradle-web-application
+# Albayda, Giodeelyn B.
+# Coloma, Juan Paolo A.
