@@ -1,2 +1,1 @@
-Albayda, Giodeelyn B.
-Coloma, Juan Paolo A.
+Giodeelyn Albayda and Juan Paolo Coloma
